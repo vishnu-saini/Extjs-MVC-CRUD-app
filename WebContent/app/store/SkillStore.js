@@ -4,9 +4,10 @@ Ext.define('AM.store.SkillStore', {
 
 	autoLoad : true,
 
+
 	proxy : {
 		type : 'rest',
-		url: 'http://localhost:8080/accountapp/api/skill',
+		url : 'http://localhost:8080/accountapp/api/skill',
 		reader : {
 			type : 'json',
 			root : 'data',

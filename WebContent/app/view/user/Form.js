@@ -1,6 +1,6 @@
-Ext.define('AM.view.user.Edit', {
+Ext.define('AM.view.user.Form', {
 	extend : 'Ext.window.Window',
-	alias : 'widget.useredit',
+	alias : 'widget.userform',
 
 	title : 'Edit User',
 	layout : 'fit',
@@ -70,8 +70,11 @@ Ext.define('AM.view.user.Edit', {
 		} ];
 
 		this.buttons = [ {
-			text : 'Save',
-			action : 'save'
+			text : 'Add',
+			action : 'add'
+		}, {
+			text : 'Edit',
+			action : 'edit'
 		}, {
 			text : 'Cancel',
 			scope : this,

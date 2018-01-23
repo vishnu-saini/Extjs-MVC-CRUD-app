@@ -3,14 +3,26 @@ Ext.define('AM.store.UserStore', {
 	model : 'AM.model.UserModel',
 
 	autoLoad : true,
+	pageSize : 10,
+	remoteSort : true,
+	remoteFilter: true,
+	proxy : {
 
-	proxy : {	
 		type : 'rest',
-		url: 'http://localhost:8080/accountapp/api/user',
+		url : 'http://localhost:8080/accountapp/api/user',
+		idParam : 'id',
+		appendId : true,
 		reader : {
 			type : 'json',
-			root : 'data',
+			root : 'data.content',
+			totalProperty : 'data.totalElements',
 			successProperty : 'success'
 		},
+		actionMethods : {
+			create : 'POST',
+			read : 'GET',
+			update : 'PUT',
+			destroy : 'DELETE'
+		}
 	}
 });

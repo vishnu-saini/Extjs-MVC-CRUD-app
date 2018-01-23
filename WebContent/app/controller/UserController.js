@@ -4,7 +4,7 @@ Ext
 				{
 					extend : 'Ext.app.Controller',
 
-					views : [ 'user.List', 'user.Edit', 'user.Add' ],
+					views : [ 'user.List', 'user.Form' ],
 
 					stores : [ 'UserStore', 'SkillStore' ],
 
@@ -16,95 +16,47 @@ Ext
 						this.control({
 
 							'userlist' : {
-								itemdblclick : this.showUserEditForm
-							},
-							'useredit button[action=save]' : {
-								click : this.updateUser
+								itemdblclick : this.showUserForm
 							},
 							'userlist button[action=add]' : {
-								click : this.addUser
+								click : this.showUserForm
 							},
-							'useradd button[action=save]' : {
-								click : this.addUserToServer
+							'userform button[action=add]' : {
+								click : this.addOrUpdateUser
+							},
+							'userform button[action=edit]' : {
+								click : this.addOrUpdateUser
 							},
 						});
 					},
 
-					showUserEditForm : function(grid, record) {
-						console.log('Double clicked on ' + record.get('name'));
-						
-						var skillObjectArray= record.data.skills;
-						record.data.skills=[];
-						
-						skillObjectArray.forEach(function(e) {
+					showUserForm : function(grid, record) {
+
+						var view = Ext.widget('userform');
+
+						if (typeof record.data != 'undefined') {
+							view.down('button[action=add]').hide();
+							var skillObjectArray = record.data.skills;
+							record.data.skills = [];
+							skillObjectArray.forEach(function(e) {
 								record.data.skills.push(e.id);
-						});
-						
-						var view = Ext.widget('useredit');
-						
-						
-						
-						
-						
-						view.down('form').loadRecord(record);
-						console.log(record.data);
-					},
-
-					updateUser : function(button) {
-						
-						var userStore = this.getStore('UserStore');
-						var skillStore = this.getStore('SkillStore');
-						
-						
-						var win = button.up('window'), form = win.down('form'), record = form
-								.getRecord(), values = form.getValues();
-
-						
-						var skills = [];
-						var skillIds = values.skills;
-						if (skillIds.constructor === Array) {
-							for (var i = 0; i < skillIds.length; i++) {
-								skillStore.data.items.forEach(function(e) {
-									if (e.data.id == skillIds[i]) {
-										skills.push({
-											"id" : skillIds[i],
-											"name" : e.data.name
-										});
-									}
-								});
-
-							}
-						} else {
-							skillStore.data.items.forEach(function(e) {
-								if (e.data.id == skillIds) {
-									skills.push({
-										"id" : skillIds,
-										"name" : e.data.name
-									});
-								}
 							});
+							view.down('form').loadRecord(record);
+							console.log(record.data);
+						} else {
+							view.down('button[action=edit]').hide();
 						}
-						values.skills = skills;
-						
-						
-						record.set(values);
-						win.close();
-						this.userStore.sync();
 					},
 
-					addUser : function() {
-						console.log("add user inside");
-						var view = Ext.widget('useradd');
-						console.log(view);
-					},
+					addOrUpdateUser : function(button) {
 
-					addUserToServer : function(button) {
+						console.log(button);
 						var userStore = this.getStore('UserStore');
 						var skillStore = this.getStore('SkillStore');
-						console.log(skillStore.data.items);
 
-						var win = button.up('window'), form = win.down('form'), record = form
-								.getRecord(), values = form.getValues();
+						var win = button.up('window');
+						var record = win.down('form').getRecord();
+						var values = win.down('form').getValues();
 
 						var skills = [];
 						var skillIds = values.skills;
@@ -131,10 +83,18 @@ Ext
 							});
 						}
 						values.skills = skills;
+
 						console.log(values);
-						userStore.insert(0, values);
+
+						if (button.action == "add") {
+							userStore.add(values);
+						} else if (button.action == "edit") {
+							record.set(values);
+						}
+
 						win.close();
 						userStore.sync();
+
 					},
 
 					renderSkills : function(value, record) {
