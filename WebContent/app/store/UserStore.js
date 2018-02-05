@@ -3,9 +3,10 @@ Ext.define('AM.store.UserStore', {
 	model : 'AM.model.UserModel',
 
 	autoLoad : true,
+	autoSync : true,
 	pageSize : 10,
 	remoteSort : true,
-	remoteFilter: true,
+	remoteFilter : true,
 	proxy : {
 
 		type : 'rest',

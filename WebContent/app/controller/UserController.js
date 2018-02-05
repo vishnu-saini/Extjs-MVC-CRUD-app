@@ -4,12 +4,12 @@ Ext
 				{
 					extend : 'Ext.app.Controller',
 
-					views : [ 'user.List', 'user.Form' ],
+					views : [ 'user.List', 'user.Form','layout.AbsoluteLayout','layout.AccordionLayout'  ],
 
 					stores : [ 'UserStore', 'SkillStore' ],
 
 					models : [ 'UserModel', 'SkillModel' ],
-
+					
 					init : function() {
 						console
 								.log('Initialized Users! This happens before the Application launch function is called');
@@ -104,6 +104,7 @@ Ext
 						}
 						skills = skills.slice(0, -1);
 						return skills;
-					}
+					},
+
 
 				});
