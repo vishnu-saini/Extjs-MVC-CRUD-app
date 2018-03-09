@@ -1,0 +1,13 @@
+{
+    success: true,
+    orders: [
+        {orderNo: 101, customerId: 'CUST-ABC', inputDate: '05/11/2012'},
+        {orderNo: 102, customerId: 'CUST-ABC', inputDate: '05/12/2012'},
+        {orderNo: 103, customerId: 'CUST-ABC', inputDate: '05/13/2012'},
+        {orderNo: 104, customerId: 'CUST-ABC', inputDate: '05/13/2012'},
+        {orderNo: 105, customerId: 'CUST-DEF', inputDate: '05/14/2012'},
+        {orderNo: 106, customerId: 'CUST-DEF', inputDate: '05/14/2012'},
+        {orderNo: 107, customerId: 'CUST-DEF', inputDate: '05/14/2012'},
+        {orderNo: 108, customerId: 'CUST-DEF', inputDate: '05/15/2012'}
+    ]
+}

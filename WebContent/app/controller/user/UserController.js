@@ -1,15 +1,17 @@
 Ext
 		.define(
-				'AM.controller.UserController',
+				'AM.controller.user.UserController',
 				{
 					extend : 'Ext.app.Controller',
 
-					views : [ 'user.List', 'user.Form','layout.AbsoluteLayout','layout.AccordionLayout'  ],
+					views : [ 'user.List', 'user.Form',
+							'layout.AbsoluteLayout', 'layout.AccordionLayout',
+							'layout.AnchorLayout', 'layout.Tree'],
 
 					stores : [ 'UserStore', 'SkillStore' ],
 
 					models : [ 'UserModel', 'SkillModel' ],
-					
+
 					init : function() {
 						console
 								.log('Initialized Users! This happens before the Application launch function is called');
@@ -27,7 +29,16 @@ Ext
 							'userform button[action=edit]' : {
 								click : this.addOrUpdateUser
 							},
+							'userlist' : {
+								edit : this.UpdateUserFromGrid
+							}
 						});
+					},
+
+					UpdateUserFromGrid : function(editor, e) {
+						console.log(editor);
+						console.log(e);
+						this.getStore('UserStore').sync();
 					},
 
 					showUserForm : function(grid, record) {
@@ -105,6 +116,5 @@ Ext
 						skills = skills.slice(0, -1);
 						return skills;
 					},
-
 
 				});

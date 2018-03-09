@@ -10,25 +10,22 @@ Ext.define('AM.view.user.List', {
 		local : false
 	// defaults to false (remote filtering)
 	} ],
-	selType: 'rowmodel',
-    rowEditor: Ext.create('Ext.grid.plugin.RowEditing', {
-        clicksToEdit: 1
-    }),
+	selType : 'rowmodel',
+	rowEditor : Ext.create('Ext.grid.plugin.RowEditing', {
+		clicksToEdit : 1,
+	}),
 	initComponent : function() {
 
 		checkboxArray = [];
 
-		var store = Ext.data.StoreManager.lookup('SkillStore');
-		console.log(store);
-		store.each(function(record) {
-			fieldValue = record.get('name');
-			console.log(fieldValue);
-			checkboxArray.push({
-				boxLabel : record.get('name'),
-				name : 'skills',
-				inputValue : record.get('id'),
-			});
-		}, this);
+		/*
+		 * var store = Ext.data.StoreManager.lookup('SkillStore');
+		 * console.log("in list ja"); console.log(store);
+		 * store.each(function(record) { fieldValue = record.get('name');
+		 * console.log(fieldValue); checkboxArray.push({ boxLabel :
+		 * record.get('name'), name : 'skills', inputValue : record.get('id'),
+		 * }); }, this);
+		 */
 		console.log(checkboxArray);
 
 		this.columns = [
@@ -42,14 +39,15 @@ Ext.define('AM.view.user.List', {
 						type : 'string',
 						// optional configs
 						value : 'star', // setting a value makes the filter
-										// active.
+						// active.
 						itemDefaults : {
 						// any Ext.form.field.Text configs accepted
 						}
 					},
 					editor : {
 						xtype : 'textfield',
-						allowBlank : false
+						allowBlank : false,
+						vtype : 'alpha'
 					}
 				},
 				{
@@ -59,7 +57,8 @@ Ext.define('AM.view.user.List', {
 					flex : 1,
 					editor : {
 						xtype : 'textfield',
-						allowBlank : false
+						allowBlank : false,
+						vtype : 'email'
 					}
 				},
 				{
@@ -72,9 +71,11 @@ Ext.define('AM.view.user.List', {
 						items : [ {
 							boxLabel : 'Male',
 							inputValue : 'Male',
+							name : 'gender',
 						}, {
 							boxLabel : 'Female',
 							inputValue : 'Female',
+							name : 'gender',
 						} ]
 					}
 
@@ -97,7 +98,8 @@ Ext.define('AM.view.user.List', {
 					flex : 1,
 					editor : {
 						xtype : 'textfield',
-						allowBlank : false
+						allowBlank : false,
+						vtype : 'alphanumwithdot'
 					}
 				},
 				{

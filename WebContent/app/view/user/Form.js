@@ -27,11 +27,15 @@ Ext.define('AM.view.user.Form', {
 			items : [ {
 				xtype : 'textfield',
 				name : 'name',
-				fieldLabel : 'Name'
+				fieldLabel : 'Name',
+				allowBlank: false,
+				vtype : 'alpha'
 			}, {
 				xtype : 'textfield',
 				name : 'emailId',
-				fieldLabel : 'Email'
+				fieldLabel : 'Email',
+				allowBlank: false,
+				vtype : 'email'
 			}, {
 
 				xtype : 'radiogroup',
@@ -52,13 +56,16 @@ Ext.define('AM.view.user.Form', {
 				xtype : 'datefield',
 				fieldLabel : 'DOB',
 				submitFormat : 'Y-m-d',
-				name : 'dateOfBirth'
+				name : 'dateOfBirth',
+				allowBlank: false,
 			},
 
 			{
 				xtype : 'textfield',
 				name : 'qualification',
-				fieldLabel : 'Qualification'
+				fieldLabel : 'Qualification',
+				allowBlank: false,
+				vtype : 'alphanumwithdot'
 			}, {
 				xtype : 'checkboxgroup',
 				fieldLabel : 'Skills',
